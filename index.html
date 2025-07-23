@@ -1,111 +1,111 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
-<he<style>
-  :root {
-    --bg-color: #121212;
-    --text-color: #ffffff;
-    --accent-color: #00bcd4;
-    --card-color: #1e1e1e;
-    --font: "Vazirmatn", sans-serif;
-  }
-
-  body {
-    background-color: var(--bg-color);
-    color: var(--text-color);
-    font-family: var(--font);
-    direction: rtl;
-    margin: 0;
-    padding: 0;
-  }
-
-  header {
-    background-color: var(--card-color);
-    padding: 1rem;
-    text-align: center;
-    box-shadow: 0 0 10px #00000066;
-  }
-
-  h1 {
-    font-size: 2.2rem;
-    margin-bottom: 0.5rem;
-    color: var(--accent-color);
-  }
-
-  h2 {
-    font-size: 1rem;
-    font-weight: normal;
-    color: #ccc;
-  }
-
-  main {
-    padding: 2rem;
-  }
-
-  .card {
-    background-color: var(--card-color);
-    padding: 1rem;
-    margin: 1rem 0;
-    border-radius: 12px;
-    box-shadow: 0 0 10px #00000044;
-  }
-
-  a {
-    color: var(--accent-color);
-    text-decoration: none;
-  }
-
-  a:hover {
-    text-decoration: underline;
-  }
-</style>
-
-<!-- Google Font for Farsi -->
-<link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet">ad>
+<head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>دانش‌بازار</title>
-  <link rel="stylesheet" href="style.css" />
+
+  <!-- Google Font for Farsi -->
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- ✅ Dark Mode Styles -->
+  <style>
+    :root {
+      --bg-color: #121212;
+      --text-color: #ffffff;
+      --accent-color: #00bcd4;
+      --card-color: #1e1e1e;
+      --font: "Vazirmatn", sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      font-family: var(--font);
+      direction: rtl;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: var(--card-color);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: 0 0 10px #00000066;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 0.5rem;
+      color: var(--accent-color);
+    }
+
+    .subtitle, h2 {
+      font-size: 1rem;
+      font-weight: normal;
+      color: #ccc;
+    }
+
+    main {
+      padding: 2rem;
+    }
+
+    .card {
+      background-color: var(--card-color);
+      padding: 1rem;
+      margin: 1rem 0;
+      border-radius: 12px;
+      box-shadow: 0 0 10px #00000044;
+    }
+
+    a {
+      color: var(--accent-color);
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1rem;
+      background-color: var(--card-color);
+      color: #aaa;
+    }
+
+    button {
+      background-color: var(--accent-color);
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      color: #fff;
+      cursor: pointer;
+      font-family: inherit;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 1rem;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 0.25rem;
+      border: 1px solid #444;
+      border-radius: 6px;
+      background-color: #2a2a2a;
+      color: white;
+    }
+
+    form {
+      max-width: 400px;
+      margin: auto;
+    }
+  </style>
 </head>
+
 <body>
   <header>
-    <h1>دانش‌بازار</h1>
-    <p class="subtitle">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
-    <button id="darkModeToggle">🌓 حالت شب</button>
-  </header>
-
-  <main>
-    <section class="form-section">
-      <h2>📘 ثبت کتاب برای فروش</h2>
-      <form id="bookForm">
-        <label>عنوان کتاب:<input type="text" id="title" required></label>
-        <label>نام نویسنده/انتشارات:<input type="text" id="author" required></label>
-        <label>قیمت (تومان):<input type="number" id="price" required></label>
-        <label>شماره تماس یا واتساپ:<input type="text" id="contact" required></label>
-        <button type="submit">📤 ارسال</button>
-      </form>
-    </section>
-
-    <section class="listing-section">
-      <h2>📚 کتاب‌های موجود</h2>
-      <div id="bookList"></div>
-    </section>
-  </main>
-
-  <footer>
-    <p>© 2025 دانش‌بازار</p>
-  </footer>
-
-  <script src="script.js"></script>
-</body>
-</html>
-<header>
-  <h1>دانش‌بازار</h1>
-  <h2>بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</h2>
-</header>
-
-<main>
-  <div class="card">
-    <p>این یک نمونه کارت برای محتوای سایت است.</p>
-  </div>
-</main>
+    <h1>دانش
