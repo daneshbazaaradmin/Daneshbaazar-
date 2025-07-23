@@ -2,149 +2,199 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>دانش‌بازار</title>
-
-  <!-- Google Font for Farsi -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet" />
-
   <style>
-    :root {
-      --bg-color: #121212;
-      --text-color: #ffffff;
-      --accent-color: #00bcd4;
-      --card-color: #1e1e1e;
-      --font: "Vazirmatn", sans-serif;
-    }
-
     body {
-      background-color: var(--bg-color);
-      color: var(--text-color);
-      font-family: var(--font);
-      direction: rtl;
+      font-family: "Vazirmatn", sans-serif;
       margin: 0;
       padding: 0;
+      background-color: #111;
+      color: white;
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    body.light {
+      background-color: #f4f4f4;
+      color: #222;
     }
 
     header {
-      background-color: var(--card-color);
-      padding: 1rem;
       text-align: center;
-      box-shadow: 0 0 10px #00000066;
+      padding: 1rem;
+      background-color: #222;
+    }
+
+    body.light header {
+      background-color: #ddd;
+    }
+
+    .header-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 1rem;
+    }
+
+    #darkModeToggle {
+      background-color: #00bcd4;
+      border: none;
+      color: white;
+      font-size: 14px;
+      padding: 4px 10px;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    #darkModeToggle:hover {
+      background-color: #0097a7;
     }
 
     h1 {
-      font-size: 2.2rem;
-      margin-bottom: 0.5rem;
-      color: var(--accent-color);
+      font-size: 2rem;
+      color: #00bcd4;
+      margin: 0.5rem 0;
     }
 
     .subtitle {
       font-size: 1rem;
-      font-weight: normal;
+      margin-top: 0;
       color: #ccc;
     }
 
+    body.light .subtitle {
+      color: #333;
+    }
+
     main {
-      padding: 2rem;
-    }
-
-    .card {
-      background-color: var(--card-color);
       padding: 1rem;
-      margin: 1rem 0;
-      border-radius: 12px;
-      box-shadow: 0 0 10px #00000044;
+      max-width: 600px;
+      margin: auto;
     }
 
-    a {
-      color: var(--accent-color);
-      text-decoration: none;
-    }
-
-    a:hover {
-      text-decoration: underline;
-    }
-
-    footer {
-      text-align: center;
+    form {
+      background-color: #1e1e1e;
       padding: 1rem;
-      background-color: var(--card-color);
-      color: #aaa;
+      border-radius: 10px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.4);
     }
 
-    button {
-      background-color: var(--accent-color);
-      border: none;
-      padding: 0.5rem 1rem;
-      border-radius: 8px;
-      color: #fff;
-      cursor: pointer;
-      font-family: inherit;
+    body.light form {
+      background-color: #fff;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
     }
 
     label {
       display: block;
-      margin-bottom: 1rem;
+      margin-top: 1rem;
+      margin-bottom: 0.5rem;
     }
 
     input, select {
       width: 100%;
       padding: 0.5rem;
-      margin-top: 0.25rem;
-      border: 1px solid #444;
       border-radius: 6px;
-      background-color: #2a2a2a;
-      color: white;
+      border: none;
+      font-family: inherit;
     }
 
-    form {
-      max-width: 400px;
-      margin: auto;
+    .book-listings {
+      margin-top: 2rem;
+    }
+
+    .listing {
+      background-color: #1c1c1c;
+      border-radius: 8px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+    }
+
+    body.light .listing {
+      background-color: #fefefe;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+    }
+
+    .listing img {
+      max-width: 100px;
+      border-radius: 6px;
+      margin-top: 0.5rem;
+    }
+
+    button[type="submit"] {
+      background-color: #00bcd4;
+      color: white;
+      padding: 0.5rem 1rem;
+      margin-top: 1rem;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button[type="submit"]:hover {
+      background-color: #0097a7;
+    }
+
+    .search-container {
+      margin-bottom: 1rem;
+    }
+
+    .search-container input {
+      width: 100%;
+      padding: 0.5rem;
+      margin-top: 1rem;
+      border-radius: 6px;
+      border: none;
     }
   </style>
 </head>
-
 <body>
   <header>
-  <div class="header-top">
-    <button id="darkModeToggle" title="تغییر حالت شب/روز">🌓</button>
-    <h1>دانش‌بازار</h1>
-  </div>
-  <p class="subtitle">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
+    <div class="header-top">
+      <button id="darkModeToggle" title="تغییر حالت شب/روز">🌓</button>
+      <h1>دانش‌بازار</h1>
+    </div>
+    <p class="subtitle">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
   </header>
 
   <main>
-    <section class="form-section">
+    <form id="bookForm">
       <h2>📘 ثبت کتاب برای فروش</h2>
-      <form id="bookForm">
-        <label>عنوان کتاب:<input type="text" id="title" required></label>
-        <label>نام نویسنده/انتشارات:<input type="text" id="author" required></label>
-        <label>قیمت (تومان):<input type="number" id="price" required></label>
-        <label>دسته‌بندی:
-          <select id="category" required>
-            <option value="">انتخاب کنید</option>
-            <option value="درسی">درسی</option>
-            <option value="کنکور">کنکور</option>
-            <option value="زبان">زبان</option>
-            <option value="متفرقه">متفرقه</option>
-          </select>
-        </label>
-        <label>شماره تماس / واتساپ / لینک پرداخت:<input type="text" id="contact" required></label>
-        <button type="submit">📤 ارسال</button>
-      </form>
-    </section>
+      <label>عنوان کتاب:</label>
+      <input type="text" id="title" required />
 
-    <section class="listing-section">
-      <h2>📚 کتاب‌های موجود</h2>
-      <input type="text" id="searchInput" placeholder="جستجوی عنوان یا نویسنده..." style="width:100%;padding:0.5rem;margin-bottom:1rem;">
-      <div id="bookList"></div>
-    </section>
+      <label>نام نویسنده/انتشارات:</label>
+      <input type="text" id="author" required />
+
+      <label>قیمت (تومان):</label>
+      <input type="number" id="price" required />
+
+      <label>دسته‌بندی:</label>
+      <select id="category" required>
+        <option value="">انتخاب کنید</option>
+        <option value="درسی">درسی</option>
+        <option value="کنکور">کنکور</option>
+        <option value="زبان">زبان</option>
+        <option value="متفرقه">متفرقه</option>
+      </select>
+
+      <label>شماره تماس:</label>
+      <input type="text" id="contact" required />
+
+      <label>تصویر کتاب (JPG/PNG, حداکثر 1MB):</label>
+      <input type="file" id="image" accept="image/png, image/jpeg" />
+
+      <button type="submit">➕ ارسال</button>
+    </form>
+
+    <div class="search-container">
+      <input type="text" id="searchInput" placeholder="جستجوی کتاب..." />
+    </div>
+
+    <section class="book-listings" id="listings"></section>
   </main>
-
-  <footer>
-    <p>© 2025 دانش‌بازار</p>
-  </footer>
 
   <script src="script.js"></script>
 </body>
