@@ -227,5 +227,30 @@
       }
     });
   </script>
+  <script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
+  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+  // Your web app's Firebase configuration
+  const firebaseConfig = {
+    apiKey: "AIzaSyBZxT9eSQ37mlzmWCjwaodOQVBf5VxWNBQ",
+    authDomain: "daneshbaazar.firebaseapp.com",
+    projectId: "daneshbaazar",
+    storageBucket: "daneshbaazar.appspot.com", // ✅ Fixed this line
+    messagingSenderId: "1049703578192",
+    appId: "1:1049703578192:web:d3e842a8a3c0b6f8d16f55",
+    measurementId: "G-KYKNKE9M65"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+  const db = getFirestore(app);
+
+  // Export db to use it in other scripts if needed
+  window.db = db;
+  </script>
 </body>
 </html>
