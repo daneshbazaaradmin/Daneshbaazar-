@@ -152,16 +152,16 @@
     <h2>📘 ثبت کتاب برای فروش</h2>
     <form id="bookForm">
       <label>عنوان کتاب:</label>
-      <input type="text" required>
+      <input type="text" id="title" required>
 
       <label>نام نویسنده/انتشارات:</label>
-      <input type="text" required>
+      <input type="text" id="author" required>
 
       <label>قیمت (تومان):</label>
-      <input type="number" required>
+      <input type="number" id="price" required>
 
       <label>دسته‌بندی:</label>
-      <select required>
+      <select id="category" required>
         <option value="" disabled selected>انتخاب کنید</option>
         <option>درسی</option>
         <option>کنکور</option>
@@ -171,7 +171,7 @@
       </select>
 
       <label>شماره تماس:</label>
-      <input type="text" required>
+      <input type="text" id="phone" required>
 
       <label>تصویر کتاب (JPG/PNG, حداکثر 1MB):</label>
       <input type="file" id="bookImage" accept="image/png, image/jpeg">
@@ -182,41 +182,79 @@
     <section class="listing" id="bookList"></section>
   </main>
 
-  <script>
+  <!-- Firebase + Firestore + Main Script -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyBZxT9eSQ37mlzmWCjwaodOQVBf5VxWNBQ",
+      authDomain: "daneshbaazar.firebaseapp.com",
+      projectId: "daneshbaazar",
+      storageBucket: "daneshbaazar.appspot.com",
+      messagingSenderId: "1049703578192",
+      appId: "1:1049703578192:web:d3e842a8a3c0b6f8d16f55",
+      measurementId: "G-KYKNKE9M65"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
     const form = document.getElementById("bookForm");
     const bookList = document.getElementById("bookList");
     const themeToggle = document.getElementById("themeToggle");
 
-    // Toggle dark mode
     themeToggle.addEventListener("click", () => {
       document.body.classList.toggle("dark");
     });
 
-    form.addEventListener("submit", function (e) {
+    // Display book
+    function displayBook(data) {
+      const book = document.createElement("div");
+      book.className = "book";
+      book.innerHTML = `
+        ${data.image ? `<img src="${data.image}" alt="book image">` : ""}
+        <p><strong>عنوان:</strong> ${data.title}</p>
+        <p><strong>نویسنده/انتشارات:</strong> ${data.author}</p>
+        <p><strong>قیمت:</strong> ${data.price} تومان</p>
+        <p><strong>دسته:</strong> ${data.category}</p>
+        <p><strong>تماس:</strong> ${data.phone}</p>
+      `;
+      bookList.prepend(book);
+    }
+
+    // Load existing books
+    async function loadBooks() {
+      const querySnapshot = await getDocs(collection(db, "books"));
+      querySnapshot.forEach((doc) => {
+        displayBook(doc.data());
+      });
+    }
+
+    loadBooks();
+
+    // Form submission
+    form.addEventListener("submit", async function (e) {
       e.preventDefault();
 
-      const inputs = form.querySelectorAll("input, select");
-      const [title, author, price, category, phone] = [...inputs];
-
+      const title = document.getElementById("title").value;
+      const author = document.getElementById("author").value;
+      const price = document.getElementById("price").value;
+      const category = document.getElementById("category").value;
+      const phone = document.getElementById("phone").value;
       const file = document.getElementById("bookImage").files[0];
+
       if (file && file.size > 1024 * 1024) {
         alert("حجم فایل بیشتر از 1MB است.");
         return;
       }
 
       const reader = new FileReader();
-      reader.onload = function (event) {
-        const book = document.createElement("div");
-        book.className = "book";
-        book.innerHTML = `
-          ${file ? `<img src="${event.target.result}" alt="book image">` : ""}
-          <p><strong>عنوان:</strong> ${title.value}</p>
-          <p><strong>نویسنده/انتشارات:</strong> ${author.value}</p>
-          <p><strong>قیمت:</strong> ${price.value} تومان</p>
-          <p><strong>دسته:</strong> ${category.value}</p>
-          <p><strong>تماس:</strong> ${phone.value}</p>
-        `;
-        bookList.prepend(book);
+      reader.onload = async function (event) {
+        const imageData = file ? event.target.result : "";
+        const bookData = { title, author, price, category, phone, image: imageData };
+        await addDoc(collection(db, "books"), bookData);
+        displayBook(bookData);
         form.reset();
       };
 
@@ -226,31 +264,6 @@
         reader.onload({ target: { result: "" } });
       }
     });
-  </script>
-  <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-analytics.js";
-  import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-  // Your web app's Firebase configuration
-  const firebaseConfig = {
-    apiKey: "AIzaSyBZxT9eSQ37mlzmWCjwaodOQVBf5VxWNBQ",
-    authDomain: "daneshbaazar.firebaseapp.com",
-    projectId: "daneshbaazar",
-    storageBucket: "daneshbaazar.appspot.com", // ✅ Fixed this line
-    messagingSenderId: "1049703578192",
-    appId: "1:1049703578192:web:d3e842a8a3c0b6f8d16f55",
-    measurementId: "G-KYKNKE9M65"
-  };
-
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
-  const db = getFirestore(app);
-
-  // Export db to use it in other scripts if needed
-  window.db = db;
   </script>
 </body>
 </html>
