@@ -6,9 +6,8 @@
   <title>دانش‌بازار</title>
 
   <!-- Google Font for Farsi -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet" />
 
-  <!-- ✅ Dark Mode Styles -->
   <style>
     :root {
       --bg-color: #121212;
@@ -40,7 +39,7 @@
       color: var(--accent-color);
     }
 
-    .subtitle, h2 {
+    .subtitle {
       font-size: 1rem;
       font-weight: normal;
       color: #ccc;
@@ -89,7 +88,7 @@
       margin-bottom: 1rem;
     }
 
-    input {
+    input, select {
       width: 100%;
       padding: 0.5rem;
       margin-top: 0.25rem;
@@ -109,4 +108,42 @@
 <body>
   <header>
     <h1>دانش‌بازار</h1>
-    <p class="subtitle">باز
+    <p class="subtitle">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
+    <button id="darkModeToggle">🌓 حالت شب</button>
+  </header>
+
+  <main>
+    <section class="form-section">
+      <h2>📘 ثبت کتاب برای فروش</h2>
+      <form id="bookForm">
+        <label>عنوان کتاب:<input type="text" id="title" required></label>
+        <label>نام نویسنده/انتشارات:<input type="text" id="author" required></label>
+        <label>قیمت (تومان):<input type="number" id="price" required></label>
+        <label>دسته‌بندی:
+          <select id="category" required>
+            <option value="">انتخاب کنید</option>
+            <option value="درسی">درسی</option>
+            <option value="کنکور">کنکور</option>
+            <option value="زبان">زبان</option>
+            <option value="متفرقه">متفرقه</option>
+          </select>
+        </label>
+        <label>شماره تماس / واتساپ / لینک پرداخت:<input type="text" id="contact" required></label>
+        <button type="submit">📤 ارسال</button>
+      </form>
+    </section>
+
+    <section class="listing-section">
+      <h2>📚 کتاب‌های موجود</h2>
+      <input type="text" id="searchInput" placeholder="جستجوی عنوان یا نویسنده..." style="width:100%;padding:0.5rem;margin-bottom:1rem;">
+      <div id="bookList"></div>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2025 دانش‌بازار</p>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
