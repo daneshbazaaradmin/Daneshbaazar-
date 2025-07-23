@@ -182,11 +182,12 @@
     <section class="listing" id="bookList"></section>
   </main>
 
-  <!-- Firebase + Firestore + Main Script -->
+  <!-- Firebase SDKs -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
+    // Your Firebase config (keep this)
     const firebaseConfig = {
       apiKey: "AIzaSyBZxT9eSQ37mlzmWCjwaodOQVBf5VxWNBQ",
       authDomain: "daneshbaazar.firebaseapp.com",
@@ -197,73 +198,13 @@
       measurementId: "G-KYKNKE9M65"
     };
 
+    // Initialize and expose Firestore
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
-
-    const form = document.getElementById("bookForm");
-    const bookList = document.getElementById("bookList");
-    const themeToggle = document.getElementById("themeToggle");
-
-    themeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("dark");
-    });
-
-    // Display book
-    function displayBook(data) {
-      const book = document.createElement("div");
-      book.className = "book";
-      book.innerHTML = `
-        ${data.image ? `<img src="${data.image}" alt="book image">` : ""}
-        <p><strong>عنوان:</strong> ${data.title}</p>
-        <p><strong>نویسنده/انتشارات:</strong> ${data.author}</p>
-        <p><strong>قیمت:</strong> ${data.price} تومان</p>
-        <p><strong>دسته:</strong> ${data.category}</p>
-        <p><strong>تماس:</strong> ${data.phone}</p>
-      `;
-      bookList.prepend(book);
-    }
-
-    // Load existing books
-    async function loadBooks() {
-      const querySnapshot = await getDocs(collection(db, "books"));
-      querySnapshot.forEach((doc) => {
-        displayBook(doc.data());
-      });
-    }
-
-    loadBooks();
-
-    // Form submission
-    form.addEventListener("submit", async function (e) {
-      e.preventDefault();
-
-      const title = document.getElementById("title").value;
-      const author = document.getElementById("author").value;
-      const price = document.getElementById("price").value;
-      const category = document.getElementById("category").value;
-      const phone = document.getElementById("phone").value;
-      const file = document.getElementById("bookImage").files[0];
-
-      if (file && file.size > 1024 * 1024) {
-        alert("حجم فایل بیشتر از 1MB است.");
-        return;
-      }
-
-      const reader = new FileReader();
-      reader.onload = async function (event) {
-        const imageData = file ? event.target.result : "";
-        const bookData = { title, author, price, category, phone, image: imageData };
-        await addDoc(collection(db, "books"), bookData);
-        displayBook(bookData);
-        form.reset();
-      };
-
-      if (file) {
-        reader.readAsDataURL(file);
-      } else {
-        reader.onload({ target: { result: "" } });
-      }
-    });
+    window.db = db;
   </script>
+
+  <!-- Main logic -->
+  <script src="script.js"></script>
 </body>
 </html>
