@@ -29,6 +29,7 @@
       color: var(--text-color);
       margin: 0;
       padding: 0;
+      transition: background-color 0.3s ease, color 0.3s ease;
     }
 
     header {
@@ -182,29 +183,6 @@
     <section class="listing" id="bookList"></section>
   </main>
 
-  <!-- Firebase SDKs -->
-  <script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-    import { getFirestore } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
-    // Your Firebase config (keep this)
-    const firebaseConfig = {
-      apiKey: "AIzaSyBZxT9eSQ37mlzmWCjwaodOQVBf5VxWNBQ",
-      authDomain: "daneshbaazar.firebaseapp.com",
-      projectId: "daneshbaazar",
-      storageBucket: "daneshbaazar.appspot.com",
-      messagingSenderId: "1049703578192",
-      appId: "1:1049703578192:web:d3e842a8a3c0b6f8d16f55",
-      measurementId: "G-KYKNKE9M65"
-    };
-
-    // Initialize and expose Firestore
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-    window.db = db;
-  </script>
-
-  <!-- Main logic -->
-  <script src="script.js"></script>
+  <script type="module" src="script.js"></script>
 </body>
 </html>
