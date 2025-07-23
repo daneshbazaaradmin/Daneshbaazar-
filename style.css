@@ -56,3 +56,109 @@ footer {
   padding: 10px;
   margin-top: 30px;
 }
+body {
+  font-family: 'Vazirmatn', sans-serif;
+  background-color: #f4f4f4;
+  color: #222;
+  margin: 0;
+  padding: 0;
+  direction: rtl;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+header {
+  background-color: #222;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+  position: relative;
+}
+
+.subtitle {
+  font-size: 1rem;
+  margin-top: 0.5rem;
+}
+
+#darkModeToggle {
+  position: absolute;
+  left: 1rem;
+  top: 1rem;
+  background: #444;
+  color: white;
+  border: none;
+  padding: 5px 10px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+main {
+  padding: 1rem;
+}
+
+h2 {
+  margin-top: 1.5rem;
+  color: #333;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7rem;
+  margin-top: 1rem;
+}
+
+input, button {
+  padding: 0.5rem;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+}
+
+button {
+  background-color: #0077cc;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background-color: #005fa3;
+}
+
+.listing-section {
+  margin-top: 2rem;
+}
+
+#bookList > div {
+  background: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+/* Dark Mode */
+body.dark {
+  background-color: #111;
+  color: #eee;
+}
+
+body.dark header {
+  background-color: #000;
+}
+
+body.dark #darkModeToggle {
+  background: #eee;
+  color: #000;
+}
+
+body.dark input, body.dark button {
+  background-color: #222;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark #bookList > div {
+  background-color: #222;
+  border-color: #444;
+}
