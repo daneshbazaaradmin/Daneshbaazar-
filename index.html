@@ -2,37 +2,38 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>دانش‌بازار</title>
-
-  <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
-
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
+      --bg-color: #ffffff;
+      --text-color: #111111;
+      --card-color: #f0f0f0;
+      --accent-color: #00bcd4;
+    }
+
+    body.dark {
       --bg-color: #121212;
       --text-color: #ffffff;
-      --accent-color: #00bcd4;
       --card-color: #1e1e1e;
-      --font: "Vazirmatn", sans-serif;
     }
 
     body {
-      margin: 0;
-      font-family: var(--font);
+      font-family: 'Vazirmatn', sans-serif;
       background-color: var(--bg-color);
       color: var(--text-color);
+      margin: 0;
+      padding: 0;
     }
 
     header {
       background-color: var(--card-color);
       padding: 1rem;
-      box-shadow: 0 2px 10px #00000066;
       display: flex;
       justify-content: space-between;
       align-items: center;
-      position: relative;
-      flex-wrap: wrap;
+      box-shadow: 0 2px 10px #00000066;
     }
 
     .logo {
@@ -53,15 +54,8 @@
       color: var(--accent-color);
     }
 
-    .subtitle {
-      font-size: 0.9rem;
-      color: #ccc;
-      margin: 0.25rem 0 0.5rem;
-      text-align: center;
-    }
-
     #themeToggle {
-      background-color: transparent;
+      background: none;
       border: none;
       font-size: 1.5rem;
       cursor: pointer;
@@ -69,112 +63,163 @@
     }
 
     main {
-      padding: 1.5rem;
+      padding: 1rem;
+      max-width: 500px;
+      margin: auto;
     }
 
     h2 {
       text-align: center;
-      margin-bottom: 1rem;
+      font-size: 1.4rem;
     }
 
     form {
-      max-width: 400px;
-      margin: auto;
-    }
-
-    label {
-      display: block;
-      margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      background-color: var(--card-color);
+      padding: 1.5rem;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
     }
 
     input, select {
-      width: 100%;
-      padding: 0.5rem;
-      margin-top: 0.25rem;
-      border: 1px solid #444;
-      border-radius: 6px;
-      background-color: #2a2a2a;
-      color: white;
+      padding: 0.6rem;
+      border: none;
+      border-radius: 5px;
+      background-color: #2c2c2c11;
+      color: var(--text-color);
+      font-family: inherit;
+    }
+
+    input[type="file"] {
+      padding: 0.3rem;
     }
 
     button[type="submit"] {
       background-color: var(--accent-color);
+      color: white;
       border: none;
-      padding: 0.5rem 1rem;
+      padding: 0.8rem;
       border-radius: 8px;
-      color: #fff;
       cursor: pointer;
-      font-family: inherit;
-      margin-top: 1rem;
-      display: block;
-      margin-left: auto;
+      font-size: 1rem;
+    }
+
+    .listing {
+      margin-top: 2rem;
+    }
+
+    .book {
+      background-color: var(--card-color);
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .book img {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 0.5rem;
+      border-radius: 8px;
+    }
+
+    label {
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
-
   <header>
     <div class="logo">
-      <!-- Stylish book icon -->
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-        <path d="M8 12v40c0 2.2 1.8 4 4 4h40V8H12c-2.2 0-4 1.8-4 4zm4 0h36v40H12V12zm40 0v40h4V12h-4z" />
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <path d="M6 4v16a2 2 0 0 0 2 2h13v-2H8V4H6zm3-2v2h12v16h2V2H9z"/>
       </svg>
       <h1>دانش‌بازار</h1>
     </div>
     <button id="themeToggle" title="تغییر حالت شب/روز">🌗</button>
   </header>
 
-  <p class="subtitle">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
-
   <main>
+    <p style="text-align:center;">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
     <h2>📘 ثبت کتاب برای فروش</h2>
     <form id="bookForm">
-      <label>
-        عنوان کتاب:
-        <input type="text" required>
-      </label>
-      <label>
-        نام نویسنده/انتشارات:
-        <input type="text" required>
-      </label>
-      <label>
-        قیمت (تومان):
-        <input type="number" required>
-      </label>
-      <label>
-        دسته‌بندی:
-        <select required>
-          <option value="">انتخاب کنید</option>
-          <option value="درسی">درسی</option>
-          <option value="زبان">زبان</option>
-          <option value="داستانی">داستانی</option>
-        </select>
-      </label>
-      <label>
-        شماره تماس:
-        <input type="text" required>
-      </label>
-      <button type="submit">📤 ارسال</button>
+      <label>عنوان کتاب:</label>
+      <input type="text" required>
+
+      <label>نام نویسنده/انتشارات:</label>
+      <input type="text" required>
+
+      <label>قیمت (تومان):</label>
+      <input type="number" required>
+
+      <label>دسته‌بندی:</label>
+      <select required>
+        <option value="" disabled selected>انتخاب کنید</option>
+        <option>درسی</option>
+        <option>کنکور</option>
+        <option>زبان</option>
+        <option>داستانی</option>
+        <option>متفرقه</option>
+      </select>
+
+      <label>شماره تماس:</label>
+      <input type="text" required>
+
+      <label>تصویر کتاب (JPG/PNG, حداکثر 1MB):</label>
+      <input type="file" id="bookImage" accept="image/png, image/jpeg">
+
+      <button type="submit">ارسال 🛒</button>
     </form>
+
+    <section class="listing" id="bookList"></section>
   </main>
 
   <script>
-    const toggleButton = document.getElementById('themeToggle');
-    toggleButton.addEventListener('click', () => {
-      document.body.classList.toggle('light-mode');
-      if (document.body.classList.contains('light-mode')) {
-        document.documentElement.style.setProperty('--bg-color', '#f5f5f5');
-        document.documentElement.style.setProperty('--text-color', '#000');
-        document.documentElement.style.setProperty('--card-color', '#ffffff');
-        toggleButton.textContent = '🌞';
+    const form = document.getElementById("bookForm");
+    const bookList = document.getElementById("bookList");
+    const themeToggle = document.getElementById("themeToggle");
+
+    // Toggle dark mode
+    themeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("dark");
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const inputs = form.querySelectorAll("input, select");
+      const [title, author, price, category, phone] = [...inputs];
+
+      const file = document.getElementById("bookImage").files[0];
+      if (file && file.size > 1024 * 1024) {
+        alert("حجم فایل بیشتر از 1MB است.");
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const book = document.createElement("div");
+        book.className = "book";
+        book.innerHTML = `
+          ${file ? `<img src="${event.target.result}" alt="book image">` : ""}
+          <p><strong>عنوان:</strong> ${title.value}</p>
+          <p><strong>نویسنده/انتشارات:</strong> ${author.value}</p>
+          <p><strong>قیمت:</strong> ${price.value} تومان</p>
+          <p><strong>دسته:</strong> ${category.value}</p>
+          <p><strong>تماس:</strong> ${phone.value}</p>
+        `;
+        bookList.prepend(book);
+        form.reset();
+      };
+
+      if (file) {
+        reader.readAsDataURL(file);
       } else {
-        document.documentElement.style.setProperty('--bg-color', '#121212');
-        document.documentElement.style.setProperty('--text-color', '#ffffff');
-        document.documentElement.style.setProperty('--card-color', '#1e1e1e');
-        toggleButton.textContent = '🌗';
+        reader.onload({ target: { result: "" } });
       }
     });
   </script>
-
 </body>
 </html>
