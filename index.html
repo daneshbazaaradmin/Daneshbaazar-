@@ -1,35 +1,36 @@
 <!DOCTYPE html>
 <html lang="fa" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>دانش‌بازار | تبادل کتاب و منابع درسی</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>دانش‌بازار</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;600&display=swap" rel="stylesheet">
 </head>
 <body>
   <header>
-    <h1>🎓 دانش‌بازار</h1>
-    <p>بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان ایرانی</p>
+    <h1>دانش‌بازار</h1>
+    <p class="subtitle">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
+    <button id="darkModeToggle">🌓 حالت شب</button>
   </header>
 
-  <section class="form-section">
-    <h2>📘 ارسال کتاب</h2>
-    <form>
-      <label for="title">عنوان کتاب:</label>
-      <input type="text" id="title" name="title" required>
+  <main>
+    <section class="form-section">
+      <h2>📘 ثبت کتاب برای فروش</h2>
+      <form id="bookForm">
+        <label>عنوان کتاب:<input type="text" id="title" required></label>
+        <label>نام نویسنده/انتشارات:<input type="text" id="author" required></label>
+        <label>قیمت (تومان):<input type="number" id="price" required></label>
+        <label>شماره تماس یا واتساپ:<input type="text" id="contact" required></label>
+        <button type="submit">📤 ارسال</button>
+      </form>
+    </section>
 
-      <label for="author">نویسنده:</label>
-      <input type="text" id="author" name="author" required>
-
-      <label for="price">قیمت (تومان):</label>
-      <input type="number" id="price" name="price" required>
-
-      <label for="contact">اطلاعات تماس (شماره یا تلگرام):</label>
-      <input type="text" id="contact" name="contact" required>
-
-      <button type="submit">ارسال</button>
-    </form>
-  </section>
+    <section class="listing-section">
+      <h2>📚 کتاب‌های موجود</h2>
+      <div id="bookList"></div>
+    </section>
+  </main>
 
   <footer>
     <p>© 2025 دانش‌بازار</p>
