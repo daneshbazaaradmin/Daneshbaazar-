@@ -2,131 +2,162 @@
 <html lang="fa" dir="rtl">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>دانش‌بازار</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn&display=swap" rel="stylesheet" />
   <style>
     body {
       font-family: 'Vazirmatn', sans-serif;
       margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
+      padding: 1rem;
+      background-color: #f8f8f8;
       color: #222;
     }
+
     body.dark {
-      background-color: #1e1e1e;
-      color: #f1f1f1;
+      background-color: #121212;
+      color: #f8f8f8;
     }
+
     header {
-      background-color: #222;
-      color: #fff;
-      padding: 1rem;
-      text-align: center;
-      position: relative;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
     }
+
     #themeToggle {
-      position: absolute;
-      top: 1rem;
-      left: 1rem;
-      background: none;
-      border: none;
       font-size: 1.5rem;
       cursor: pointer;
-      color: inherit;
     }
+
+    h1 {
+      margin: 0;
+      font-size: 1.8rem;
+    }
+
     form {
-      max-width: 600px;
-      margin: 1rem auto;
-      background: #fff;
+      background-color: #fff;
       padding: 1rem;
-      border-radius: 0.5rem;
+      border-radius: 8px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      margin-bottom: 2rem;
     }
-    form.dark {
-      background: #2e2e2e;
+
+    body.dark form {
+      background-color: #1e1e1e;
     }
-    input, select, button, textarea {
+
+    label {
+      display: block;
+      margin-top: 0.5rem;
+      margin-bottom: 0.2rem;
+    }
+
+    input, select {
       width: 100%;
       padding: 0.5rem;
-      margin-bottom: 1rem;
-      border-radius: 0.3rem;
+      margin-bottom: 0.7rem;
       border: 1px solid #ccc;
-      font-family: inherit;
+      border-radius: 5px;
     }
-    .filters {
-      display: flex;
-      flex-direction: column;
-      gap: 1rem;
-      max-width: 600px;
-      margin: 1rem auto;
-      padding: 0 1rem;
+
+    button {
+      padding: 0.5rem 1rem;
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
     }
-    @media (min-width: 500px) {
-      .filters {
-        flex-direction: row;
-        justify-content: space-between;
-      }
-    }
-    #bookList {
-      max-width: 1000px;
-      margin: 2rem auto;
-      display: grid;
-      gap: 1rem;
-      padding: 1rem;
-    }
+
     .book {
-      border: 1px solid #ccc;
-      border-radius: 0.5rem;
+      background-color: #fff;
       padding: 1rem;
-      background: #fff;
+      border-radius: 8px;
+      margin-bottom: 1rem;
+      box-shadow: 0 0 8px rgba(0,0,0,0.05);
     }
+
     body.dark .book {
-      background: #2a2a2a;
-      border-color: #555;
+      background-color: #1e1e1e;
     }
+
     .book img {
       max-width: 100%;
-      height: auto;
-      border-radius: 0.5rem;
-      margin-bottom: 0.5rem;
+      max-height: 200px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 1rem;
+    }
+
+    #filters {
+      margin-bottom: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 0.5rem;
+      }
+
+      form, .book {
+        padding: 0.7rem;
+      }
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>📚 دانش‌بازار</h1>
-    <p>بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
-    <button id="themeToggle">🌗</button>
+    <div id="themeToggle">🌗</div>
+    <h1>دانش‌بازار</h1>
   </header>
 
-  <section class="filters">
-    <input type="text" id="searchInput" placeholder="جستجو بر اساس عنوان یا نویسنده..." />
-    <select id="categoryFilter">
-      <option value="همه">همه دسته‌ها</option>
-      <option value="درسی">درسی</option>
-      <option value="کنکور">کنکور</option>
-      <option value="زبان">زبان</option>
-      <option value="داستانی">داستانی</option>
-      <option value="متفرقه">متفرقه</option>
-    </select>
+  <section>
+    <h2 style="margin-bottom: 1rem;">📚 افزودن کتاب جدید</h2>
+    <form id="bookForm">
+      <label for="title">عنوان کتاب</label>
+      <input type="text" id="title" required>
+
+      <label for="author">نویسنده</label>
+      <input type="text" id="author" required>
+
+      <label for="price">قیمت (تومان)</label>
+      <input type="number" id="price" required>
+
+      <label for="category">دسته‌بندی</label>
+      <select id="category">
+        <option>درسی</option>
+        <option>زبان</option>
+        <option>داستانی</option>
+        <option>متفرقه</option>
+      </select>
+
+      <label for="location">موقعیت</label>
+      <input type="text" id="location" required>
+
+      <label for="phone">شماره تماس (بدون 0)</label>
+      <input type="tel" id="phone" required>
+
+      <label for="bookImage">عکس کتاب (JPG/PNG - حداکثر 1MB)</label>
+      <input type="file" id="bookImage" accept="image/jpeg,image/png">
+
+      <button type="submit">ارسال</button>
+    </form>
   </section>
 
-  <form id="bookForm">
-    <input type="text" id="title" placeholder="عنوان کتاب" required />
-    <input type="text" id="author" placeholder="نویسنده یا ناشر" required />
-    <input type="text" id="price" placeholder="قیمت به تومان" required />
-    <select id="category" required>
-      <option value="">انتخاب دسته‌بندی</option>
-      <option value="درسی">درسی</option>
-      <option value="کنکور">کنکور</option>
-      <option value="زبان">زبان</option>
-      <option value="داستانی">داستانی</option>
-      <option value="متفرقه">متفرقه</option>
+  <section id="filters">
+    <label for="searchInput">جستجو</label>
+    <input type="text" id="searchInput" placeholder="جستجوی عنوان یا نویسنده...">
+
+    <label for="categoryFilter">فیلتر دسته‌بندی</label>
+    <select id="categoryFilter">
+      <option>همه</option>
+      <option>درسی</option>
+      <option>زبان</option>
+      <option>داستانی</option>
+      <option>متفرقه</option>
     </select>
-    <input type="text" id="location" placeholder="شهر / منطقه" required />
-    <input type="tel" id="phone" placeholder="شماره تماس (مثلاً ۹۱۲xxxxxxx)" required />
-    <input type="file" id="bookImage" accept="image/png, image/jpeg" />
-    <button type="submit">📤 ارسال</button>
-  </form>
+  </section>
 
   <section id="bookList"></section>
 
