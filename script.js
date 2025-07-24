@@ -5,9 +5,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const searchInput = document.getElementById("searchInput");
   const categoryFilter = document.getElementById("categoryFilter");
 
-  let books = JSON.parse(localStorage.getItem("books")) || [];
-
-  displayBooks(books);
+  let books = [];
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
@@ -37,7 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
         const imageData = event.target.result;
         const newBook = { title, author, price, category, location, phone, image: imageData };
         books.push(newBook);
-        localStorage.setItem("books", JSON.stringify(books));
         displayBooks(books);
         form.reset();
       };
@@ -45,7 +42,6 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       const newBook = { title, author, price, category, location, phone, image: null };
       books.push(newBook);
-      localStorage.setItem("books", JSON.stringify(books));
       displayBooks(books);
       form.reset();
     }
@@ -63,7 +59,7 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "book";
 
       card.innerHTML = `
-        ${book.image ? `<img src="${book.image}" alt="عکس کتاب">` : ""}
+        ${book.image ? `<img src="${book.image}" alt="Book Image">` : ""}
         <h3>${book.title}</h3>
         <p><strong>نویسنده:</strong> ${book.author}</p>
         <p><strong>قیمت:</strong> ${book.price} تومان</p>
@@ -77,7 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-    document.body.classList.toggle("light");
     themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌗";
   });
 
