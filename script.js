@@ -2,6 +2,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const form = document.getElementById("bookForm");
   const bookList = document.getElementById("bookList");
   const themeToggle = document.getElementById("themeToggle");
+  const searchInput = document.getElementById("searchInput");
+  const categoryFilter = document.getElementById("categoryFilter");
 
   let books = [];
 
@@ -17,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageInput = document.getElementById("bookImage");
 
     if (!title || !author || !price || !category || !location || !phone) {
-      alert("لطفاً همه فیلدها را پر کنید.");
+      alert("لطفاً تمام فیلدها را پر کنید.");
       return;
     }
 
     if (imageInput.files.length > 0) {
       const file = imageInput.files[0];
       if (file.size > 1024 * 1024 || !["image/jpeg", "image/png"].includes(file.type)) {
-        alert("عکس باید JPG یا PNG و کمتر از ۱ مگابایت باشد.");
+        alert("تصویر باید JPG یا PNG باشد و کمتر از ۱ مگابایت.");
         return;
       }
 
@@ -57,11 +59,11 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "book";
 
       card.innerHTML = `
-        ${book.image ? `<img src="${book.image}" alt="عکس کتاب">` : ""}
+        ${book.image ? `<img src="${book.image}" alt="Book Image">` : ""}
         <h3>${book.title}</h3>
-        <p><strong>نویسنده / ناشر:</strong> ${book.author}</p>
+        <p><strong>نویسنده/ناشر:</strong> ${book.author}</p>
         <p><strong>قیمت:</strong> ${book.price} تومان</p>
-        <p><strong>دسته‌بندی:</strong> ${book.category}</p>
+        <p><strong>دسته:</strong> ${book.category}</p>
         <p><strong>مکان:</strong> ${book.location}</p>
         <p><strong>تماس:</strong> <a href="https://wa.me/98${book.phone}" target="_blank">${book.phone}</a></p>
       `;
@@ -69,8 +71,24 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
+  function filterBooks() {
+    const searchText = searchInput.value.trim().toLowerCase();
+    const selectedCategory = categoryFilter.value;
+
+    const filtered = books.filter(book => {
+      const matchesSearch = book.title.toLowerCase().includes(searchText) || book.author.toLowerCase().includes(searchText);
+      const matchesCategory = selectedCategory === "همه" || book.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+
+    displayBooks(filtered);
+  }
+
+  searchInput.addEventListener("input", filterBooks);
+  categoryFilter.addEventListener("change", filterBooks);
+
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-    themeToggle.textContent = document.body.classList.contains("dark") ? "🌞 حالت روشن" : "🌙 حالت شب";
+    themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌗";
   });
 });
