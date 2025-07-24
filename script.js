@@ -17,14 +17,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageInput = document.getElementById("bookImage");
 
     if (!title || !author || !price || !category || !location || !phone) {
-      alert("Please fill in all fields.");
+      alert("لطفاً همه فیلدها را پر کنید.");
       return;
     }
 
     if (imageInput.files.length > 0) {
       const file = imageInput.files[0];
       if (file.size > 1024 * 1024 || !["image/jpeg", "image/png"].includes(file.type)) {
-        alert("Image must be JPG/PNG and less than 1MB");
+        alert("عکس باید JPG یا PNG و کمتر از ۱ مگابایت باشد.");
         return;
       }
 
@@ -48,7 +48,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function displayBooks(bookArray) {
     bookList.innerHTML = "";
     if (bookArray.length === 0) {
-      bookList.innerHTML = "<p>No books found.</p>";
+      bookList.innerHTML = "<p>کتابی پیدا نشد.</p>";
       return;
     }
 
@@ -57,13 +57,13 @@ document.addEventListener("DOMContentLoaded", () => {
       card.className = "book";
 
       card.innerHTML = `
-        ${book.image ? `<img src="${book.image}" alt="Book Image">` : ""}
+        ${book.image ? `<img src="${book.image}" alt="عکس کتاب">` : ""}
         <h3>${book.title}</h3>
-        <p><strong>Author:</strong> ${book.author}</p>
-        <p><strong>Price:</strong> ${book.price} Toman</p>
-        <p><strong>Category:</strong> ${book.category}</p>
-        <p><strong>Location:</strong> ${book.location}</p>
-        <p><strong>Contact:</strong> <a href="https://wa.me/98${book.phone}" target="_blank">${book.phone}</a></p>
+        <p><strong>نویسنده / ناشر:</strong> ${book.author}</p>
+        <p><strong>قیمت:</strong> ${book.price} تومان</p>
+        <p><strong>دسته‌بندی:</strong> ${book.category}</p>
+        <p><strong>مکان:</strong> ${book.location}</p>
+        <p><strong>تماس:</strong> <a href="https://wa.me/98${book.phone}" target="_blank">${book.phone}</a></p>
       `;
       bookList.appendChild(card);
     });
@@ -71,6 +71,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
-    themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌗";
+    themeToggle.textContent = document.body.classList.contains("dark") ? "🌞 حالت روشن" : "🌙 حالت شب";
   });
 });
