@@ -1,89 +1,76 @@
-import { initializeApp } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-app.js";
-import {
-  getFirestore,
-  collection,
-  addDoc,
-  getDocs
-} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("bookForm");
+  const bookList = document.getElementById("bookList");
+  const themeToggle = document.getElementById("themeToggle");
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBZxT9eSQ37mlzmWCjwaodOQVBf5VxWNBQ",
-  authDomain: "daneshbaazar.firebaseapp.com",
-  projectId: "daneshbaazar",
-  storageBucket: "daneshbaazar.appspot.com",
-  messagingSenderId: "1049703578192",
-  appId: "1:1049703578192:web:d3e842a8a3c0b6f8d16f55",
-  measurementId: "G-KYKNKE9M65"
-};
+  let books = [];
 
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
 
-const form = document.getElementById("bookForm");
-const bookList = document.getElementById("bookList");
-const themeToggle = document.getElementById("themeToggle");
+    const title = document.getElementById("title").value.trim();
+    const author = document.getElementById("author").value.trim();
+    const price = document.getElementById("price").value.trim();
+    const category = document.getElementById("category").value;
+    const location = document.getElementById("location").value.trim();
+    const phone = document.getElementById("phone").value.trim();
+    const imageInput = document.getElementById("bookImage");
 
-themeToggle.addEventListener("click", () => {
-  document.body.classList.toggle("dark");
-  themeToggle.textContent = document.body.classList.contains("dark") ? "☀️" : "🌗";
-});
+    if (!title || !author || !price || !category || !location || !phone) {
+      alert("Please fill in all fields.");
+      return;
+    }
 
-// Show books
-function displayBook(data) {
-  const book = document.createElement("div");
-  book.className = "book";
-  book.innerHTML = `
-    ${data.image ? `<img src="${data.image}" alt="book image">` : ""}
-    <p><strong>عنوان:</strong> ${data.title}</p>
-    <p><strong>نویسنده/انتشارات:</strong> ${data.author}</p>
-    <p><strong>قیمت:</strong> ${data.price} تومان</p>
-    <p><strong>دسته:</strong> ${data.category}</p>
-    <p><strong>تماس:</strong> <a href="https://wa.me/98${data.phone}" target="_blank">${data.phone}</a></p>
-  `;
-  bookList.prepend(book);
-}
+    if (imageInput.files.length > 0) {
+      const file = imageInput.files[0];
+      if (file.size > 1024 * 1024 || !["image/jpeg", "image/png"].includes(file.type)) {
+        alert("Image must be JPG/PNG and less than 1MB");
+        return;
+      }
 
-async function loadBooks() {
-  const snapshot = await getDocs(collection(db, "books"));
-  snapshot.forEach((doc) => displayBook(doc.data()));
-}
+      const reader = new FileReader();
+      reader.onload = function (event) {
+        const imageData = event.target.result;
+        const newBook = { title, author, price, category, location, phone, image: imageData };
+        books.push(newBook);
+        displayBooks(books);
+        form.reset();
+      };
+      reader.readAsDataURL(file);
+    } else {
+      const newBook = { title, author, price, category, location, phone, image: null };
+      books.push(newBook);
+      displayBooks(books);
+      form.reset();
+    }
+  });
 
-loadBooks();
+  function displayBooks(bookArray) {
+    bookList.innerHTML = "";
+    if (bookArray.length === 0) {
+      bookList.innerHTML = "<p>No books found.</p>";
+      return;
+    }
 
-form.addEventListener("submit", async function (e) {
-  e.preventDefault();
+    bookArray.forEach(book => {
+      const card = document.createElement("div");
+      card.className = "book";
 
-  const title = document.getElementById("title").value.trim();
-  const author = document.getElementById("author").value.trim();
-  const price = document.getElementById("price").value.trim();
-  const category = document.getElementById("category").value;
-  const phone = document.getElementById("phone").value.trim();
-  const file = document.getElementById("bookImage").files[0];
-
-  if (!title || !author || !price || !category || !phone) {
-    alert("لطفاً همه فیلدها را پر کنید.");
-    return;
+      card.innerHTML = `
+        ${book.image ? `<img src="${book.image}" alt="Book Image">` : ""}
+        <h3>${book.title}</h3>
+        <p><strong>Author:</strong> ${book.author}</p>
+        <p><strong>Price:</strong> ${book.price} Toman</p>
+        <p><strong>Category:</strong> ${book.category}</p>
+        <p><strong>Location:</strong> ${book.location}</p>
+        <p><strong>Contact:</strong> <a href="https://wa.me/98${book.phone}" target="_blank">${book.phone}</a></p>
+      `;
+      bookList.appendChild(card);
+    });
   }
 
-  if (file && file.size > 1024 * 1024) {
-    alert("حجم تصویر بیشتر از 1 مگابایت است.");
-    return;
-  }
-
-  const reader = new FileReader();
-
-  reader.onload = async function (event) {
-    const imageData = file ? event.target.result : "";
-    const bookData = { title, author, price, category, phone, image: imageData };
-
-    await addDoc(collection(db, "books"), bookData);
-    displayBook(bookData);
-    form.reset();
-  };
-
-  if (file) {
-    reader.readAsDataURL(file);
-  } else {
-    reader.onload({ target: { result: "" } });
-  }
+  themeToggle.addEventListener("click", () => {
+    document.body.classList.toggle("dark");
+    themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌗";
+  });
 });
