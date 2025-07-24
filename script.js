@@ -19,14 +19,14 @@ document.addEventListener("DOMContentLoaded", () => {
     const imageInput = document.getElementById("bookImage");
 
     if (!title || !author || !price || !category || !location || !phone) {
-      alert("لطفاً تمام فیلدها را پر کنید.");
+      alert("لطفاً همه‌ی فیلدها را پر کنید.");
       return;
     }
 
     if (imageInput.files.length > 0) {
       const file = imageInput.files[0];
       if (file.size > 1024 * 1024 || !["image/jpeg", "image/png"].includes(file.type)) {
-        alert("تصویر باید JPG یا PNG باشد و کمتر از ۱ مگابایت.");
+        alert("عکس باید JPG یا PNG باشد و کمتر از ۱ مگابایت باشد.");
         return;
       }
 
@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
   function displayBooks(bookArray) {
     bookList.innerHTML = "";
     if (bookArray.length === 0) {
-      bookList.innerHTML = "<p>کتابی پیدا نشد.</p>";
+      bookList.innerHTML = "<p>کتابی یافت نشد.</p>";
       return;
     }
 
@@ -61,34 +61,32 @@ document.addEventListener("DOMContentLoaded", () => {
       card.innerHTML = `
         ${book.image ? `<img src="${book.image}" alt="Book Image">` : ""}
         <h3>${book.title}</h3>
-        <p><strong>نویسنده/ناشر:</strong> ${book.author}</p>
+        <p><strong>نویسنده:</strong> ${book.author}</p>
         <p><strong>قیمت:</strong> ${book.price} تومان</p>
-        <p><strong>دسته:</strong> ${book.category}</p>
-        <p><strong>مکان:</strong> ${book.location}</p>
+        <p><strong>دسته‌بندی:</strong> ${book.category}</p>
+        <p><strong>موقعیت:</strong> ${book.location}</p>
         <p><strong>تماس:</strong> <a href="https://wa.me/98${book.phone}" target="_blank">${book.phone}</a></p>
       `;
       bookList.appendChild(card);
     });
   }
 
-  function filterBooks() {
-    const searchText = searchInput.value.trim().toLowerCase();
-    const selectedCategory = categoryFilter.value;
-
-    const filtered = books.filter(book => {
-      const matchesSearch = book.title.toLowerCase().includes(searchText) || book.author.toLowerCase().includes(searchText);
-      const matchesCategory = selectedCategory === "همه" || book.category === selectedCategory;
-      return matchesSearch && matchesCategory;
-    });
-
-    displayBooks(filtered);
-  }
-
-  searchInput.addEventListener("input", filterBooks);
-  categoryFilter.addEventListener("change", filterBooks);
-
   themeToggle.addEventListener("click", () => {
     document.body.classList.toggle("dark");
     themeToggle.textContent = document.body.classList.contains("dark") ? "🌞" : "🌗";
   });
+
+  searchInput.addEventListener("input", filterBooks);
+  categoryFilter.addEventListener("change", filterBooks);
+
+  function filterBooks() {
+    const search = searchInput.value.toLowerCase();
+    const selectedCategory = categoryFilter.value;
+    const filtered = books.filter(book => {
+      const matchSearch = book.title.toLowerCase().includes(search) || book.author.toLowerCase().includes(search);
+      const matchCategory = selectedCategory === "همه" || book.category === selectedCategory;
+      return matchSearch && matchCategory;
+    });
+    displayBooks(filtered);
+  }
 });
