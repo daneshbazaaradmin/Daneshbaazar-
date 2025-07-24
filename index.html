@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<html lang="en" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>دانش‌بازار</title>
+  <title>DaneshBazaar</title>
   <link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -142,41 +142,44 @@
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
         <path d="M6 4v16a2 2 0 0 0 2 2h13v-2H8V4H6zm3-2v2h12v16h2V2H9z"/>
       </svg>
-      <h1>دانش‌بازار</h1>
+      <h1>DaneshBazaar</h1>
     </div>
-    <button id="themeToggle" title="تغییر حالت شب/روز">🌗</button>
+    <button id="themeToggle" title="Toggle dark/light mode">🌗</button>
   </header>
 
   <main>
-    <p style="text-align:center;">بازاری برای تبادل کتاب‌ها و منابع بین دانشجویان و دانش‌آموزان ایرانی</p>
-    <h2>📘 ثبت کتاب برای فروش</h2>
+    <p style="text-align:center;">A marketplace for students in Iran to exchange books and resources</p>
+    <h2>📘 List a Book for Sale</h2>
     <form id="bookForm">
-      <label>عنوان کتاب:</label>
+      <label>Book Title:</label>
       <input type="text" id="title" required>
 
-      <label>نام نویسنده/انتشارات:</label>
+      <label>Author/Publisher:</label>
       <input type="text" id="author" required>
 
-      <label>قیمت (تومان):</label>
+      <label>Price (Toman):</label>
       <input type="number" id="price" required>
 
-      <label>دسته‌بندی:</label>
+      <label>Category:</label>
       <select id="category" required>
-        <option value="" disabled selected>انتخاب کنید</option>
-        <option>درسی</option>
-        <option>کنکور</option>
-        <option>زبان</option>
-        <option>داستانی</option>
-        <option>متفرقه</option>
+        <option value="" disabled selected>Select</option>
+        <option>Educational</option>
+        <option>Exam Prep</option>
+        <option>Language</option>
+        <option>Fiction</option>
+        <option>Misc</option>
       </select>
 
-      <label>شماره تماس:</label>
+      <label>Location (City/Province):</label>
+      <input type="text" id="location" required>
+
+      <label>Phone Number:</label>
       <input type="text" id="phone" required>
 
-      <label>تصویر کتاب (JPG/PNG, حداکثر 1MB):</label>
+      <label>Book Image (JPG/PNG, max 1MB):</label>
       <input type="file" id="bookImage" accept="image/png, image/jpeg">
 
-      <button type="submit">ارسال 🛒</button>
+      <button type="submit">Submit 🛒</button>
     </form>
 
     <section class="listing" id="bookList"></section>
